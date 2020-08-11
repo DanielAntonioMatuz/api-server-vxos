@@ -277,10 +277,16 @@ function searchUser(req, res){
 
 
 bot.start((ctx) => {
+
     ctx.reply('Bienvenido a VxOS Bot, soy el asistente para ayudarte a registrar a tus clientes y poder aplicar las licencias, si deseas registrar inmediatamente, escribe "registrar", si quieres ver el menu, presiona /menu o escribelo, es un gusto ayudarte');
 });
 
 bot.help((ctx) => {
+    band = false;
+    email = false;
+    name = false;
+    licencia = false;
+    user  = '';
     ctx.reply('Si deseas asistencia personalizada, contactanos en: support@vxos-software.com.mx');
 });
 
@@ -289,6 +295,11 @@ bot.settings((ctx) => {
 });
 
 bot.command(['menu'], (ctx)=> {
+    band = false;
+    email = false;
+    name = false;
+    licencia = false;
+    user  = '';
     ctx.reply('Este es el menu de VxOS Bot, con esto puedo ayudarte:');
     ctx.reply('/registrar : Para registrar un nuevo usuario para aplicarle una licencia');
     ctx.reply('/menu : Para visualizar este menu');
@@ -298,12 +309,21 @@ bot.command(['menu'], (ctx)=> {
 })
 
 bot.command(['rastreo'], (ctx)=> {
+    band = false;
+    email = false;
+    name = false;
+    licencia = false;
+    user  = '';
     ctx.reply('Rastrearemos el estatus de tu licencia, por favor, ingrese su ID de rastreo de 5 dígitos: ');
     rastreo = true;
 })
 
 bot.hears(['registrar', '/registrar'], ctx => {
     //console.log(ctx.message.text)
+    email = false;
+    name = false;
+    licencia = false;
+    user  = '';
     band = true;
     var valueID;
     User.find((err, user) => {
@@ -328,7 +348,7 @@ bot.hears(['registrar', '/registrar'], ctx => {
 })
 
 bot.hears(['si', 'SI', 'sI', 'Si'], ctx => {
-    if(name == true){
+    if(name === true){
         var userRegister = new User();
 
         userRegister.nombre = user[1];
@@ -352,11 +372,21 @@ bot.hears(['si', 'SI', 'sI', 'Si'], ctx => {
         }).exec((err, users) => {
             if(err) {
                 ctx.reply('Hubo un error en la validación de usuarios');
+                band = false;
+                email = false;
+                name = false;
+                licencia = false;
+                user  = '';
                 //return res.status(500).send({message: 'Error en la peticion de usuarios'});
             }
 
             if(users && users.length >= 1){
                 ctx.reply('El usuario que intenta registrar ya existe');
+                band = false;
+                email = false;
+                name = false;
+                licencia = false;
+                user  = '';
                 //return res.status(200).send({message: 'El usuario que intenta registrar ya existe'})
             } else {
 
@@ -365,11 +395,21 @@ bot.hears(['si', 'SI', 'sI', 'Si'], ctx => {
 
                     if(userStored){
                         ctx.reply('El usuario: ' + user[1] +', con email: ' + user[0] + ', y tipo de licencia: ' + user[2] + '  ha sido capturado de forma correcta, en 24 horas, la aplicacion de la licencia estará activa' );
-                        ctx.reply('Puede hacer el seguimiento del estatus de la licencia del usuario y servicio de soporte en: http://localhost:4200/ con el número de rastreo:' + idAsignement )
+                        ctx.reply('Puede hacer el seguimiento del estatus de la licencia del usuario y servicio de soporte en: http://vxos-software.com.mx/ con el número de rastreo: ' + idAsignement )
                         ctx.reply('Si desea registrar otro usuario, escriba "registrar", o bien, regresar al menu al escribir /menu , sino desea nada más, esto seria todo, que pase buen día ' );
+                        band = false;
+                        email = false;
+                        name = false;
+                        licencia = false;
+                        user  = '';
                         //res.status(200).send({user: userStored });
                     } else {
-                        ctx.reply('No se ha podido registrar el usuario')
+                        ctx.reply('No se ha podido registrar el usuario');
+                        band = false;
+                        email = false;
+                        name = false;
+                        licencia = false;
+                        user  = '';
                        // res.status(404).send({message: 'No se ha registrado el usuario'})
                     }
                 });
@@ -381,6 +421,11 @@ bot.hears(['si', 'SI', 'sI', 'Si'], ctx => {
 
         licencia = true;
     } else {
+        band = false;
+        email = false;
+        name = false;
+        licencia = false;
+        user  = '';
         ctx.reply('Lo siento, no puedo comprender lo que escribiste, intentalo de nuevo')
     }
 })
@@ -401,6 +446,11 @@ bot.on('text', ctx => {
         if(rastreo == true){
 
         } else {
+            band = false;
+            email = false;
+            name = false;
+            licencia = false;
+            user  = '';
             ctx.reply('Lo siento, no puedo comprender lo que escribiste, intentalo de nuevo')
         }
     }
@@ -414,14 +464,19 @@ bot.on('text', ctx => {
         name = true;
 
     } else {
-        if(rastreo == true){
+        if(rastreo === true){
 
         } else {
+            band = false;
+            email = false;
+            name = false;
+            licencia = false;
+            user  = '';
             ctx.reply('Lo siento, no puedo comprender lo que escribiste, intentalo de nuevo')
         }
     }
 
-    if(rastreo == true){
+    if(rastreo === true){
         ctx.reply('Lo estamos localizando')
         console.log(ctx.message.text)
         User.findOne({_id:  ctx.message.text }, (err, user) => {
@@ -440,6 +495,11 @@ bot.on('text', ctx => {
 
 
     } else {
+        band = false;
+        email = false;
+        name = false;
+        licencia = false;
+        user  = '';
         ctx.reply('Lo siento, no puedo comprender lo que escribiste, intentalo de nuevo')
     }
 
