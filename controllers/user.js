@@ -365,7 +365,7 @@ bot.hears(['si', 'SI', 'sI', 'Si'], ctx => {
 
                     if(userStored){
                         ctx.reply('El usuario: ' + user[1] +', con email: ' + user[0] + ', y tipo de licencia: ' + user[2] + '  ha sido capturado de forma correcta, en 24 horas, la aplicacion de la licencia estará activa' );
-                        ctx.reply('Puede hacer el seguimiento del estatus de la licencia del usuario y servicio de soporte en: http://localhost:4200/ con el número de rastreo:' + idAsignement )
+                        ctx.reply('Puede hacer el seguimiento del estatus de la licencia del usuario y servicio de soporte en: https://vxos-software.com.mx/ con el número de rastreo:' + idAsignement, + 'o bien, presionando /menu'  )
                         ctx.reply('Si desea registrar otro usuario, escriba "registrar", o bien, regresar al menu al escribir /menu , sino desea nada más, esto seria todo, que pase buen día ' );
                         //res.status(200).send({user: userStored });
                     } else {
