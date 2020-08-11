@@ -58,7 +58,7 @@ function saveUser(req,res){
 
         User.find({
             $or: [
-                {email: user.email.toLowerCase(), referencia: user.referencia.toLowerCase(), _id: user._id.toLowerCase(), tipoLicencia: user.tipoLicencia.toLowerCase()},
+                {email: user.email.toLowerCase()},
                 {referencia: user.referencia.toLowerCase()},
                 {_id: user._id.toLowerCase()}
             ]
@@ -347,7 +347,7 @@ bot.hears(['si', 'SI', 'sI', 'Si'], ctx => {
 
         User.find({
             $or: [
-                {email: user[0], _id: idAsignement}
+                {email: user[0]}
             ]
         }).exec((err, users) => {
             if(err) {
@@ -365,7 +365,7 @@ bot.hears(['si', 'SI', 'sI', 'Si'], ctx => {
 
                     if(userStored){
                         ctx.reply('El usuario: ' + user[1] +', con email: ' + user[0] + ', y tipo de licencia: ' + user[2] + '  ha sido capturado de forma correcta, en 24 horas, la aplicacion de la licencia estará activa' );
-                        ctx.reply('Puede hacer el seguimiento del estatus de la licencia del usuario y servicio de soporte en: https://vxos-software.com.mx/ con el número de rastreo:' + idAsignement, + 'o bien, presionando /menu'  )
+                        ctx.reply('Puede hacer el seguimiento del estatus de la licencia del usuario y servicio de soporte en: http://localhost:4200/ con el número de rastreo:' + idAsignement )
                         ctx.reply('Si desea registrar otro usuario, escriba "registrar", o bien, regresar al menu al escribir /menu , sino desea nada más, esto seria todo, que pase buen día ' );
                         //res.status(200).send({user: userStored });
                     } else {
