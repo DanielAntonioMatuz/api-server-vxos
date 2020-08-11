@@ -287,7 +287,7 @@ bot.help((ctx) => {
     name = false;
     licencia = false;
     user  = '';
-    ctx.reply('Si deseas asistencia personalizada, contactanos en: support@vxos-software.com.mx');
+    ctx.reply('Si deseas asistencia personalizada, contactanos en: support@vxos-software.com.mx, presiona /menu para regresar al menú');
 });
 
 bot.settings((ctx) => {
@@ -300,7 +300,7 @@ bot.command(['menu'], (ctx)=> {
     name = false;
     licencia = false;
     user  = '';
-    ctx.reply('Este es el menu de VxOS Bot, con esto puedo ayudarte:');
+    ctx.reply('Este es el menu de VxOS Bot, con esto puedo ayudarte, presiona el comando en azul, para realizar el proceso:');
     ctx.reply('/registrar : Para registrar un nuevo usuario para aplicarle una licencia');
     ctx.reply('/menu : Para visualizar este menu');
     ctx.reply('/help : para solicitar el correo de soporte de VxOS');
@@ -341,7 +341,7 @@ bot.hears(['registrar', '/registrar'], ctx => {
 
         } else {
             console.log('NOK')
-            return res.status(404).send({message: 'El usuario no se ha podido identifcar en el servidor'})
+            return res.status(404).send({message: 'El usuario no se ha podido identifcar en el servidor, presione /menu para regresar al menu'})
         }
     }).sort({$natural:-1}).limit(1);
     ctx.reply('Hola ' + ctx.message.from.first_name + ' ,comprendido, dime el email del usuario, el nombre del usuario, el tipo de licencia a registrar, todo separado por comas, ejemplo: example@example.com, Rodriguez Alvarez, Licencia Photoshop')
@@ -371,7 +371,7 @@ bot.hears(['si', 'SI', 'sI', 'Si'], ctx => {
             ]
         }).exec((err, users) => {
             if(err) {
-                ctx.reply('Hubo un error en la validación de usuarios');
+                ctx.reply('Hubo un error en la validación de usuarios, presione /menu para regresar al menú');
                 band = false;
                 email = false;
                 name = false;
@@ -381,7 +381,7 @@ bot.hears(['si', 'SI', 'sI', 'Si'], ctx => {
             }
 
             if(users && users.length >= 1){
-                ctx.reply('El usuario que intenta registrar ya existe');
+                ctx.reply('El usuario que intenta registrar ya existe, presione /menu para regresar al menú');
                 band = false;
                 email = false;
                 name = false;
@@ -426,7 +426,7 @@ bot.hears(['si', 'SI', 'sI', 'Si'], ctx => {
         name = false;
         licencia = false;
         user  = '';
-        ctx.reply('Lo siento, no puedo comprender lo que escribiste, intentalo de nuevo')
+        ctx.reply('Lo siento, no puedo comprender lo que escribiste, intentalo de nuevo, presiona /menu para ir al menú')
     }
 })
 
@@ -451,7 +451,7 @@ bot.on('text', ctx => {
             name = false;
             licencia = false;
             user  = '';
-            ctx.reply('Lo siento, no puedo comprender lo que escribiste, intentalo de nuevo')
+            ctx.reply('Lo siento, no puedo comprender lo que escribiste, intentalo de nuevo, presiona /menu para ir al menú')
         }
     }
 
@@ -472,12 +472,12 @@ bot.on('text', ctx => {
             name = false;
             licencia = false;
             user  = '';
-            ctx.reply('Lo siento, no puedo comprender lo que escribiste, intentalo de nuevo')
+            ctx.reply('Lo siento, no puedo comprender lo que escribiste, intentalo de nuevo, presiona /menu para ir al menú')
         }
     }
 
     if(rastreo === true){
-        ctx.reply('Lo estamos localizando')
+        //ctx.reply('Lo estamos localizando')
         console.log(ctx.message.text)
         User.findOne({_id:  ctx.message.text }, (err, user) => {
             if(err) return ctx.reply('Error en la solicitud, intentelo más tarde');
@@ -489,7 +489,7 @@ bot.on('text', ctx => {
                 //return res.status(200).send({search: user})
 
             } else {
-                return ctx.reply('El usuario no existe en nuestros registros');
+                //return ctx.reply('El usuario no existe en nuestros registros');
             }
         })
 
@@ -500,7 +500,7 @@ bot.on('text', ctx => {
         name = false;
         licencia = false;
         user  = '';
-        ctx.reply('Lo siento, no puedo comprender lo que escribiste, intentalo de nuevo')
+        ctx.reply('Lo siento, no puedo comprender lo que escribiste, intentalo de nuevo, presiona /menu para ir al menú')
     }
 
 
